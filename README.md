@@ -2,58 +2,27 @@
 
 **AI-assisted soil assessment and crop suitability for Ethiopian agriculture.**
 
-Agrivision AI is a research and development project exploring how computer vision and soil measurements can help farmers and agricultural students understand soil characteristics and make better-informed crop choices.
+Agrivision AI is an early-stage research project exploring how soil photographs, measured soil data, and local growing conditions could support better-informed agricultural decisions.
 
-> **Project status: Early-stage prototype.** A trained model and validated field recommendations are not included yet. This repository provides the project foundation and development plan; it does not claim that soil analysis is already accurate or production-ready.
+> **Status: Starter prototype.** The current app supports image upload and recording optional measurements. It does not yet classify soil, estimate fertility, or recommend crop/fertilizer rates. No trained model is included.
 
 ## The problem
 
-Soil characteristics influence which crops grow well and how nutrients should be managed. Farmers may have limited access to laboratory testing and timely agronomic advice. A mobile-friendly tool could help organize soil observations and make reliable agricultural information easier to access.
+Soil characteristics influence crop growth and nutrient management. A future mobile-friendly tool could help organize soil observations and make reliable agricultural information easier to access.
 
 ## Planned capabilities
 
-- **Soil image classification:** explore visible soil categories such as sandy, clay-rich, and loamy soil using a properly labeled dataset.
-- **Soil measurements:** record pH, nitrogen (N), phosphorus (P), potassium (K), and other measurements when supplied by a soil test or appropriate sensor.
-- **Crop suitability:** combine soil data with location, rainfall, temperature, altitude, season, and water availability.
+- **Soil image classification:** explore visible soil categories such as sandy, clay-rich, and loamy soil using a properly labelled dataset.
+- **Soil measurements:** record pH, nitrogen (N), phosphorus (P), potassium (K), and other measured properties.
+- **Crop suitability:** combine soil properties with rainfall, temperature, altitude, season, and water availability.
 - **Fertilizer guidance:** provide cautious, source-backed guidance only when enough reliable measurements and crop-specific recommendations are available.
-- **Farmer-friendly experience:** build toward a simple interface suitable for local use and future language support.
+- **Explainable results:** show inputs, uncertainty, sources, and limitations.
 
 ## Important scientific limitation
 
-A photograph alone cannot reliably measure soil pH, NPK concentrations, organic matter, or the exact fertilizer quantity required. Image appearance also changes with moisture, lighting, camera, and location. Agrivision AI will therefore distinguish **visible-image predictions** from **measured soil properties** and will not present an unvalidated estimate as a laboratory result.
+A photograph alone cannot reliably measure soil pH, NPK concentrations, organic matter, or the exact fertilizer quantity required. Appearance changes with moisture, lighting, camera, and location. The project will distinguish **visual predictions** from **measured soil properties** and will not present an unvalidated estimate as a laboratory result.
 
 Crop recommendations must also account for local climate and agronomic evidence. The system is intended to support—not replace—soil testing or advice from qualified agricultural professionals.
-
-## How it is planned to work
-
-1. Collect soil images and trustworthy labels from diverse Ethiopian locations.
-2. Document dataset sources, permissions, collection conditions, and label quality.
-3. Split data by sample/site where possible to reduce data leakage.
-4. Train and evaluate a baseline image classifier before considering more complex models.
-5. Add structured soil measurements and contextual crop-suitability rules.
-6. Evaluate with agricultural experts and field observations before real-world use.
-
-## Repository structure
-
-```text
-Agrivision-AI/
-├── app.py                  # Streamlit prototype
-├── src/
-│   └── agrivision/
-│       ├── __init__.py
-│       └── soil_data.py    # Input validation and cautious guidance
-├── tests/
-│   └── test_soil_data.py
-├── data/
-│   └── README.md           # Dataset instructions; no private data committed
-├── models/
-│   └── README.md           # Model artifacts and training status
-├── docs/
-│   └── roadmap.md
-├── requirements.txt
-├── .gitignore
-└── LICENSE
-```
 
 ## Run the prototype
 
@@ -84,17 +53,51 @@ Run tests:
 python -m pytest
 ```
 
-## Dataset and model status
+## Repository structure
 
-No dataset or trained model is bundled at this stage. See [data/README.md](data/README.md) and [models/README.md](models/README.md) before adding data or model artifacts. Do not upload private farmer information or datasets unless their licenses and consent conditions permit it.
+```text
+Agrivision-AI/
+├── app.py
+├── docs/
+│   ├── ROADMAP.md
+│   ├── roadmap.md
+│   └── DATA_GUIDELINES.md
+├── data/
+│   ├── README.md
+│   ├── raw/
+│   └── processed/
+├── models/
+│   └── README.md
+├── src/agrivision/
+│   ├── __init__.py
+│   └── image_utils.py
+├── tests/
+│   └── test_image_utils.py
+├── requirements.txt
+├── .gitignore
+└── LICENSE
+```
 
-## Roadmap
+## Development roadmap
 
-See [docs/roadmap.md](docs/roadmap.md) for the planned milestones, evaluation criteria, and risk controls.
+1. Define the initial soil classes and target regions with agricultural practitioners.
+2. Collect diverse, permitted soil photos and reliable reference labels.
+3. Keep train, validation, and test sets separated by sample/site where possible to reduce data leakage.
+4. Train and evaluate a baseline image classifier; report per-class precision/recall and a confusion matrix.
+5. Incorporate measured soil chemistry and locally appropriate agronomic references.
+6. Build crop-suitability logic that includes climate and growing conditions.
+7. Validate recommendations with agricultural experts and field trials before real-world use.
+8. Document limitations, model version, data sources, and performance.
 
-## Contributing
+Read the [roadmap](docs/roadmap.md) and [data collection guidelines](docs/DATA_GUIDELINES.md) before contributing datasets or recommendation rules.
 
-Issues, dataset documentation, agronomy references, and code contributions are welcome. Please explain the source of any dataset or recommendation rule and avoid presenting unvalidated results as established facts.
+## Responsible use
+
+This project is for learning and research. Do not use it as the sole basis for fertilizer application, crop selection, or other decisions that could affect a farmer's livelihood. Confirm important decisions with soil testing and qualified local agricultural advice.
+
+## Data and privacy
+
+No dataset or trained model is bundled yet. Do not upload private farmer information, precise farm coordinates, or third-party images unless permission and licensing conditions allow it. See [data/README.md](data/README.md).
 
 ## License
 
